@@ -10,7 +10,7 @@ import (
 type Point struct {
 	x, y int
 	visitedPaths [][]int
-} 
+}
 
 func (p *Point) offSet(axis string, direction int) {
 	if axis == "x" {
