@@ -36,6 +36,16 @@ class Solution:
                         return [i, j]
         return []
 
+    def two_sum4(self, nums: List[int], target: int) -> List[int]:
+        set_nums = set(nums)
+        for i, x in enumerate(nums):
+            y = target - x
+            if y in set_nums:
+                for j, v in enumerate(nums):
+                    if v == y and i != j:
+                        return [i, j]
+        return []
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -48,7 +58,7 @@ def parse_args():
 def main():
     nums, target = parse_args()
     s = Solution()
-    result = s.two_sum3(nums=nums, target=target)
+    result = s.two_sum4(nums=nums, target=target)
     print(result)
 
 

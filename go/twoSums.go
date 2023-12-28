@@ -22,6 +22,25 @@ func twoSum(nums []int, target int) []int {
 	return []int{0, 0}
 }
 
+func twoSum2(nums []int, target int) []int {
+	sNums := make(map[int]bool)
+	for _, num := range nums {
+		sNums[num] = true
+	}
+
+	for i, num1 := range nums {
+		target := target - num1
+		if sNums[target] {
+			for j, num2 := range(nums) {
+				if i!=j && num2 == target {
+					return []int{i, j}
+				}
+			}
+		}
+	}
+	return []int{0, 0}
+}
+
 func main() {
 	target := flag.Int("target", 0, "Defines the target number")
 	flag.Parse()
@@ -34,6 +53,6 @@ func main() {
 		}
 		nums = append(nums, n)
 	}
-	result := twoSum(nums, *target)
+	result := twoSum2(nums, *target)
 	fmt.Printf("Result is: %v\n", result)
 }
