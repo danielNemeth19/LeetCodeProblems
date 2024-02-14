@@ -37,6 +37,28 @@ class Solution:
                     result[-1] = value
         return sum(result)
 
+    def roman_to_integer2(self, s: str) -> int:
+        result = 0
+        skip_next = False
+        for i, c in enumerate(s):
+            if skip_next:
+                skip_next = False
+                continue
+            current_value = self.map[c]
+            next_value = 0 if i == (len(s) - 1) else self.map[s[i+1]]
+            if current_value == 1 and next_value in (5, 10):
+                skip_next = True
+                result += next_value - current_value
+            elif current_value == 10 and next_value in (50, 100):
+                skip_next = True
+                result += next_value - current_value
+            elif current_value == 100 and next_value in (500, 1000):
+                skip_next = True
+                result += next_value - current_value
+            else:
+                result += current_value
+        return result
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -47,7 +69,7 @@ def parse_args():
 
 def main():
     s = parse_args()
-    result = Solution().roman_to_integer(s)
+    result = Solution().roman_to_integer2(s)
     print(result)
 
 
