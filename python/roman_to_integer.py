@@ -8,15 +8,21 @@ class Solution:
     def _create_map(self):
         return {
             "I": 1,
+            "IV": 4,
             "V": 5,
+            "IX": 9,
             "X": 10,
+            "XL": 40,
             "L": 50,
+            "XC": 90,
             "C": 100,
+            "CD": 400,
             "D": 500,
+            "CM": 900,
             "M": 1000,
         }
 
-    def roman_to_integer(self, s: str) -> int:
+    def roman_to_integer_slowest(self, s: str) -> int:
         result = []
         for i, c in enumerate(s):
             current_value = self.map[c]
@@ -37,7 +43,7 @@ class Solution:
                     result[-1] = value
         return sum(result)
 
-    def roman_to_integer2(self, s: str) -> int:
+    def roman_to_integer_slower(self, s: str) -> int:
         result = 0
         skip_next = False
         for i, c in enumerate(s):
@@ -59,6 +65,22 @@ class Solution:
                 result += current_value
         return result
 
+    def roman_to_integer(self, s: str) -> int:
+        result = 0
+        skip_next = False
+        for i, c in enumerate(s):
+            if skip_next:
+                skip_next = False
+                continue
+            next_symbol = None if i == (len(s) - 1) else s[i+1]
+            potential_symbol = f"{c}{next_symbol}"
+            if potential_symbol in self.map:
+                skip_next = True
+                result += self.map[potential_symbol]
+            else:
+                result += self.map[c]
+        return result
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -69,7 +91,7 @@ def parse_args():
 
 def main():
     s = parse_args()
-    result = Solution().roman_to_integer2(s)
+    result = Solution().roman_to_integer(s)
     print(result)
 
 
