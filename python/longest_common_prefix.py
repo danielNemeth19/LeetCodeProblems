@@ -5,6 +5,7 @@ from typing import List
 class Solution:
     def __init__(self):
         self.maxprefix = None
+        self.longest_prefix = None
 
     def longest_common_prefix(self, strs: List[str]) -> str:
         self.maxprefix = strs[0]
@@ -12,7 +13,6 @@ class Solution:
             return ""
         if len(strs) == 1:
             return self.maxprefix
-        cache = []
         for word in strs[1:]:
             current_length = 0
             iterate_to = min(len(word), len(self.maxprefix))
@@ -20,11 +20,16 @@ class Solution:
                 if self.maxprefix[i] == word[i]:
                     current_length += 1
                 else:
-                    cache.append(current_length)
+                    self.set_current_longest_prefix(current_length)
                     break
-            cache.append(current_length)
-        length = min(cache) if cache else 0
-        return self.maxprefix[:length]
+            self.set_current_longest_prefix(current_length)
+        return self.maxprefix[:self.longest_prefix]
+
+    def set_current_longest_prefix(self, current_length: int) -> None:
+        if self.longest_prefix is None:
+            self.longest_prefix = current_length
+        else:
+            self.longest_prefix = min(self.longest_prefix, current_length)
 
 
 def parse_args():
