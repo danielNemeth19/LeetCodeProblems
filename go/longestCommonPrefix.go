@@ -1,38 +1,50 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
 )
 
-func longestCommonPrefix(strs []string) string {
-	fmt.Println(strs)
-	return ""
+func setLength(lenght int, curr int) int {
+	if lenght == -1 {
+		return curr
+	} else {
+		return min(lenght, curr)
+	}
 }
+
+func longestCommonPrefix(strs []string) string {
+	base := strs[0]
+	if base == "" {
+		return ""
+	}
+	if len(strs) == 1 {
+		return base
+	}
+	lenght := -1
+	for _, word := range strs[1:] {
+		currLenght := 0
+		toIterate := min(len(base), len(word))
+		for i := 0; i < toIterate; i++ {
+			if string(word[i]) == string(base[i]) {
+				currLenght++
+			} else {
+				lenght = setLength(lenght, currLenght)
+				break
+			}
+		}
+		lenght = setLength(lenght, currLenght)
+	}
+	return base[:lenght]
+}
+
 
 
 func main() {
-	fmt.Println("hello")
+	funcToRun := flag.String("problem", "", "Defines the problem to solve")
+	flag.Parse()
+	fmt.Println(*funcToRun)
 	strs := flag.Args()
-	var st []string
-	for _, v := range(strs) {
-		st = append(st, v)
-	}
-	longestCommonPrefix(st)
+	result := longestCommonPrefix(strs)
+	fmt.Printf("Result is: %s\n", result)
 }
-
-// func main() {
-	// target := flag.Int("target", 0, "Defines the target number")
-	// flag.Parse()
-	// strNums := flag.Args()
-	// var nums []int 
-	// for _,v := range strNums {
-		// n, err := strconv.Atoi(v)
-		// if err != nil {
-			// log.Fatalf("Bad param: %s\n", err)
-		// }
-		// nums = append(nums, n)
-	// }
-	// result := twoSum2(nums, *target)
-	// fmt.Printf("Result is: %v\n", result)
-// }
