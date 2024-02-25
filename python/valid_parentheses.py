@@ -9,8 +9,6 @@ class Solution:
         print(f"validate remaining: {s}")
         if len(s) == 1:
             return False
-        if len(s) == 2 and not self.valid_next_match(s, 0, s[0]):
-            return False
         cleaned_str = ""
         skip = False
         for i, p in enumerate(s):
@@ -22,9 +20,10 @@ class Solution:
                 skip = True
                 continue
             cleaned_str += p
-            skip = False
         if not cleaned_str:
             return True
+        if len(s) == len(cleaned_str):
+            return False
         return self.valid_parentheses(cleaned_str)
 
     def valid_next_match(self, s: str, i: int, p: str):
@@ -34,6 +33,12 @@ class Solution:
         if match and (match == s[i+1]):
             return True
         return False
+
+    def valid_parentheses2(self, s: str) -> bool:
+        while "()" in s or "[]" in s or "{}" in s:
+            s = s.replace("()", "").replace("{}", "").replace("[]", "")
+        return True if not s else False
+
 
 
 def parse_args():
@@ -45,7 +50,7 @@ def parse_args():
 
 def main():
     s = parse_args()
-    result = Solution().valid_parentheses(s)
+    result = Solution().valid_parentheses2(s)
     print(result)
 
 
