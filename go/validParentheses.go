@@ -8,11 +8,29 @@ import (
 
 func isValid(s string) bool {
 	for true {
+		removal := 0
 		if strings.Contains(s, "()") {
-			fmt.Printf("Found ()")
+			removal ++
+			s = strings.Replace(s, "()", "", -1)
+		}
+		if strings.Contains(s, "[]") {
+			removal ++
+			s = strings.Replace(s, "[]", "", -1)
+		}
+		if strings.Contains(s, "{}") {
+			removal ++
+			s = strings.Replace(s, "{}", "", -1)
+		}
+		if  s == "" {
+			fmt.Printf("All cleared!\n")
+			return true
+		}
+		if removal == 0 {
+			fmt.Printf("Remained: %s\n", s)
+			return false
 		}
 	}
-	return false
+	return true
 }
 
 func main() {
