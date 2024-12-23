@@ -47,3 +47,20 @@ def create_list_node_old(data: list):
             node.next = nodes[i+1]
     return nodes[0]
 ```
+### Additional notes from Go
+* Manually creating a linked list for testing input
+```
+node1 := ListNode{
+    Val: 2,
+    Next: &ListNode{
+        Val: 3,
+        Next: &ListNode{
+            Val: 16,
+            Next: &ListNode{
+                Val:  34,
+                Next: nil,
+            },
+        },
+    },
+}
+```
