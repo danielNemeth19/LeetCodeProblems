@@ -1,4 +1,4 @@
-## Description
+## Add Two Numbers (medium)
 
 You are given two non-empty linked lists representing two non-negative integers.
 
