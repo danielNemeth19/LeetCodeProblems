@@ -25,7 +25,7 @@ Given an integer `n`, return an array `ans` of length `n + 1` such that for each
 ```
 
 ### Constraints
-* `0 <= n <= 10<sup>5</sup`
+* `0 <= n <= 10<sup>5</sup>`
 
 
 
